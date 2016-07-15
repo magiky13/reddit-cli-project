@@ -11,14 +11,14 @@ var getSortedSubreddit = redditFunctions.getSortedSubreddit;
 var imageToAscii = require("image-to-ascii");
 
 var menuChoices = [
-  {name: 'Show homepage', value: 'HOMEPAGE'},
-  {name: 'Show subreddit', value: 'SUBREDDIT'},
-  {name: 'List subreddits', value: 'SUBREDDITS'}
+  {name: 'Show homepage', value: 'HOMEPAGE' },
+  {name: 'Show subreddit', value: 'SUBREDDIT' },
+  {name: 'List subreddits', value: 'SUBREDDITS' }
 ];
 
 
 function mainMenu() {
-  inquirer.prompt( {
+  inquirer.prompt({
     
     type: 'list',
     name: 'menu',
@@ -31,7 +31,7 @@ function mainMenu() {
       if (choice === 'HOMEPAGE') {
         getHomepage(function(err, res) {
           if (err) {
-            console.log(err)
+            console.log(err);
             
           }
           else {
@@ -43,6 +43,7 @@ function mainMenu() {
                 "Upvotes" : ele.data.ups,
                 "User" : ele.data.author
               };
+              
             });
             
             finalHomePage.forEach(function(ele){
@@ -74,6 +75,7 @@ function mainMenu() {
                 else {
                   var theSubreddit = res.map(function (ele) {
                     return {
+                      
                       "Title" : ele.data.title, 
                       "Link" :  ele.data.url, 
                       "Upvotes" : ele.data.ups,
@@ -88,7 +90,7 @@ function mainMenu() {
                     console.log('VOTES: ' + (ele.Upvotes).toString().green.bold);
                     console.log('USERNAME: ' + ele.User.yellow);
                     console.log('\n');
-                  })
+                  });
                   
                 }
               
@@ -98,6 +100,8 @@ function mainMenu() {
           
         });
         
+        mainMenu();
+ 
       }
       else if (choice === 'SUBREDDITS') {
              getSubreddits(function(err, res) {
@@ -111,9 +115,9 @@ function mainMenu() {
                      name: post1.data.title,
                      value: post1.data.display_name
                      
-                   }
+                   };
                    
-                 })
+                 });
   
               inquirer.prompt({
                  type: 'list',
@@ -131,10 +135,10 @@ function mainMenu() {
                          else {
                               var theSubredditEdited = res.map(function (ele) {
                                 return {
-                                  "Title" : ele.data.title, 
-                                  "Link" :  ele.data.url, 
-                                  "Upvotes" : ele.data.ups,
-                                  "User" : ele.data.author
+                                  Title : ele.data.title, 
+                                  Link :  ele.data.url, 
+                                  Upvotes : ele.data.ups,
+                                  User : ele.data.author
                                 };
                               });
                               theSubredditEdited.forEach(function(ele){
@@ -150,14 +154,17 @@ function mainMenu() {
                            
                          }
                        
-                     })
+                     });
                    
-                 })
+                 });
                  
                }
                
           });
+          
+          mainMenu();
       }
+      
   });
 }
   
